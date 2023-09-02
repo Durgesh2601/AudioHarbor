@@ -1,10 +1,13 @@
-import './App.css';
+import "./App.css";
+import AudioPlayer from "./components/AudioPlayer";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <>
-    <h1>Hello</h1>
-    </>
+    <div className="main-app">
+      <Navbar />
+      <AudioPlayer />
+    </div>
   );
 }
 
