@@ -3,22 +3,31 @@ import "./index.css";
 import { FOR_YOU_TAB, TOP_TRACKS_TAB } from "../../constants";
 import { getSongsData } from "../../api";
 import PlayListItem from "./PlayList";
+import { getAfterSearchData } from "../../utils";
 
-const AudioPlayer = ({ src }) => {
+const AudioPlayer = () => {
   const [activeTab, setActiveTab] = useState(FOR_YOU_TAB);
   const [searchQuery, setSearchQuery] = useState("");
   const [allSongs, setAllSongs] = useState([]);
   const [playList, setPlayList] = useState([]);
+  const [playListMap, setPlayListMap] = useState({});
   const [selectedSong, setSelectedSong] = useState(null);
   const getAllSongs = useCallback(async () => {
     try {
       const response = await getSongsData();
       const songs = response?.data?.data || [];
+      const topTracks = songs?.filter((song) => song?.top_track);
+      const mappedPlayList = {
+        [FOR_YOU_TAB]: songs,
+        [TOP_TRACKS_TAB]: topTracks,
+      };
+      setPlayListMap(mappedPlayList);
       setAllSongs(songs);
       setPlayList(songs);
     } catch (error) {
       console.error(error);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -41,16 +50,22 @@ const AudioPlayer = ({ src }) => {
   }, [selectedSong]);
 
   const setSelectedTabSongs = () => {
-    const topTracks = allSongs?.filter((song) => song?.top_track);
-    const playListMap = {
-      [FOR_YOU_TAB]: allSongs,
-      [TOP_TRACKS_TAB]: topTracks,
-    };
     setPlayList(playListMap[activeTab]);
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+
+  const handleSearch = (val) => {
+    setSearchQuery(val);
+    const query = val?.trim()?.toLowerCase();
+    const allData = [...allSongs];
+    if (!query) {
+      return setPlayList(allData);
+    }
+    const filteredData = getAfterSearchData(playListMap[activeTab], query);
+    setPlayList(filteredData);
   };
 
   return (
@@ -75,7 +90,7 @@ const AudioPlayer = ({ src }) => {
           type="text"
           className="search-input"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e?.target?.value)}
+          onChange={(e) => handleSearch(e?.target.value)}
         />
         <button className="search-button">
           <svg
