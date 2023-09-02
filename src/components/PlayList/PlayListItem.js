@@ -22,7 +22,7 @@ const PlayListItem = ({ song = {}, setSelectedSong, selectedSong = {} }) => {
 
   const selectedStyle = {
     background: "rgba(255, 255, 255, 0.08)",
-    borderRradius: "8px",
+    borderRadius: "8px",
   };
 
   return (

@@ -1,12 +1,17 @@
+import { useState } from "react";
 import "./App.css";
 import AudioPlayer from "./components/AudioPlayer";
 import Navbar from "./components/Navbar";
+import PlayList from "./components/PlayList";
 
 function App() {
+  const [selectedSong, setSelectedSong] = useState(null);
+
   return (
     <div className="main-app">
       <Navbar />
-      <AudioPlayer />
+      <PlayList {...{ selectedSong, setSelectedSong }} />
+      <AudioPlayer song={selectedSong} />
     </div>
   );
 }
