@@ -2,7 +2,6 @@
   height: 100vh;
   width: 30%;
 }
-
 .tab-container {
   display: flex;
 }
@@ -21,7 +20,7 @@
 }
 .input-container {
   display: flex;
-  padding-left: 1em;
+  padding-left: 1rem;
   margin-top: 0.8rem;
 }
 
@@ -40,7 +39,7 @@
 
 .search-input:hover,
 .search-input:focus {
-  box-shadow: 0 0 1em #00000013;
+  box-shadow: 0 0 1rem #00000013;
 }
 .search-input::-webkit-input-placeholder {
   font-weight: 100;
@@ -55,7 +54,49 @@
   cursor: pointer;
 }
 .search-icon {
-  height: 1.8em;
-  width: 1.8em;
+  height: 1.8rem;
+  width: 1.8rem;
   fill: rgba(255, 255, 255, 0.08);
+}
+
+.playlist-container {
+  padding: 1rem 0;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.playlist-item {
+  padding: 0.5rem 1rem;
+  width: 90%;
+  margin-top: 0.5rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+.cover-img {
+  border-radius: 50%;
+}
+.song-details {
+  margin-left: 2rem;
+}
+.song-name{
+    font-size: 14px;
+}
+.artist {
+  font-size: 12px;
+  opacity: 0.6;
+  color: #fff;
+  margin-top: 0.4rem;
+}
+.duration {
+  justify-self: flex-end;
+  margin-left: auto;
+}
+.song-duration {
+  font-size: 14px;
+  opacity: 0.6;
 }

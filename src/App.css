@@ -1,7 +1,4 @@
 .main-app {
-  background: linear-gradient(108deg, #201606 2.46%, #000 99.84%);
-  height: 100vh;
-  width: 100vw;
   padding-top: 1em;
   display: flex;
   gap: 2em;

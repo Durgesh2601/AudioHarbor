@@ -5,6 +5,9 @@
   color: white;
   font-family: "Inter", sans-serif;
 }
+body {
+  background: linear-gradient(108deg, #201606 2.46%, #000 99.84%);
+}
 @font-face {
   font-family: "Inter";
   src: url("../public/fonts/Inter-Regular.ttf") format("truetype");
