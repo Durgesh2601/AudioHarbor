@@ -61,7 +61,7 @@ const AudioPlayer = ({ song = {} }) => {
         height={340}
         className="cover-pic"
       />
-      <div className="progress">
+      <div>
         <progress
           value={currentTime}
           max={audioRef?.current?.duration || 0}
@@ -69,6 +69,9 @@ const AudioPlayer = ({ song = {} }) => {
       </div>
       <audio ref={audioRef}></audio>
       <div className="controls">
+        <div></div>
+        <div></div>
+        <div></div>
         <button onClick={togglePlayPause}>
           {isPlaying ? "Pause" : "Play"}
         </button>
