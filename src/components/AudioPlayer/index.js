@@ -58,7 +58,7 @@ const AudioPlayer = ({ song = {} }) => {
         src={imgUrl}
         alt="cover-img"
         width={400}
-        height={400}
+        height={340}
         className="cover-pic"
       />
       <div className="progress">
@@ -70,7 +70,7 @@ const AudioPlayer = ({ song = {} }) => {
       <audio ref={audioRef}></audio>
       <div className="controls">
         <button onClick={togglePlayPause}>
-          {isPlaying ? 'Pause' : 'Play'}
+          {isPlaying ? "Pause" : "Play"}
         </button>
       </div>
     </div>
