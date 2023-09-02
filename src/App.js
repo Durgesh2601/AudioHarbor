@@ -11,7 +11,7 @@ function App() {
     <div className="main-app">
       <Navbar />
       <PlayList {...{ selectedSong, setSelectedSong }} />
-      <AudioPlayer song={selectedSong} />
+      {selectedSong && <AudioPlayer song={selectedSong} />}
     </div>
   );
 }
