@@ -5,8 +5,11 @@
   color: white;
   font-family: "Inter", sans-serif;
 }
+:root {
+  --background-gradient: linear-gradient(108deg, #201606 2.46%, #000 99.84%);
+}
 body {
-  background: linear-gradient(108deg, #201606 2.46%, #000 99.84%);
+  background: var(--background-gradient);
 }
 @font-face {
   font-family: "Inter";

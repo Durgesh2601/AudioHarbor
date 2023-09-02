@@ -9,6 +9,7 @@ const AudioPlayer = ({ src }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [allSongs, setAllSongs] = useState([]);
   const [playList, setPlayList] = useState([]);
+  const [selectedSong, setSelectedSong] = useState(null);
   const getAllSongs = useCallback(async () => {
     try {
       const response = await getSongsData();
@@ -26,7 +27,18 @@ const AudioPlayer = ({ src }) => {
 
   useEffect(() => {
     setSelectedTabSongs();
+    // eslint-disable-next-line
   }, [activeTab]);
+
+  useEffect(() => {
+    if (selectedSong) {
+      const bgColor = `linear-gradient(108deg, ${selectedSong?.accent} 2.46%, #000 99.84%)`;
+      document.documentElement.style.setProperty(
+        "--background-gradient",
+        bgColor
+      );
+    }
+  }, [selectedSong]);
 
   const setSelectedTabSongs = () => {
     const topTracks = allSongs?.filter((song) => song?.top_track);
@@ -90,7 +102,14 @@ const AudioPlayer = ({ src }) => {
       <div className="playlist-container">
         {playList?.length > 0 &&
           playList?.map((song) => {
-            return <PlayListItem key={song?.id} song={song} />;
+            return (
+              <PlayListItem
+                key={song?.id}
+                song={song}
+                selectedSong={selectedSong}
+                setSelectedSong={setSelectedSong}
+              />
+            );
           })}
       </div>
     </div>
