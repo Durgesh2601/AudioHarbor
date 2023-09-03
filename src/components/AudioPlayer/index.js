@@ -6,29 +6,44 @@ import playIcon from "./play.svg";
 import pauseIcon from "./pause.svg";
 import "./index.css";
 
-const AudioPlayer = ({ song = {} }) => {
+const AudioPlayer = ({
+  song = {},
+  currentIndex,
+  setCurrentIndex,
+  allSongs,
+  setSelectedSong,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.5); // Initial volume
   const audioRef = useRef(null);
   const imgUrl = `${COVER_IMG_URL}/${song?.cover}`;
-  useEffect(() => {
-    if (song) {
-      const audio = audioRef?.current;
-      // Load the selected song when it changes
-      audio.src = song?.url;
 
-      // Play or pause the song based on the isPlaying state
-      if (isPlaying) {
-        audio?.play();
-      } else {
-        audio?.pause();
-      }
+  // Function to handle song changes and playback
+  const handleSongChange = () => {
+    if (isPlaying) {
+      audioRef.current.pause(); // Pause the current audio playback
     }
-  }, [song, isPlaying]);
-  // Update the currentTime state based on the audio's timeupdate event
+
+    if (audioRef.current.src !== song?.url) {
+      audioRef.current.src = song?.url; // Set the new audio source
+      audioRef.current.load(); // Load the new audio source
+      audioRef.current.play(); // Start playback
+      setIsPlaying(true);
+    }
+
+    if (isPlaying) {
+      audioRef.current.play(); // Start playback if it was playing
+    }
+  };
+
   useEffect(() => {
-    const audio = audioRef?.current;
+    handleSongChange(); // Call the song change handler when the song changes
+    // eslint-disable-next-line
+  }, [song]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
 
     const updateTime = () => {
       setCurrentTime(audio.currentTime);
@@ -41,21 +56,32 @@ const AudioPlayer = ({ song = {} }) => {
     };
   }, []);
 
-  // Handle play/pause toggle
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
   };
 
-  // Handle volume change
-  const handleVolumeChange = (e) => {
-    setVolume(e.target.value);
-    audioRef.current.volume = e.target.value;
+  const playNextSong = () => {
+    const nextIndex = (currentIndex + 1) % allSongs?.length || 0;
+    setSelectedSong(allSongs?.[nextIndex]);
+    setCurrentIndex(nextIndex);
   };
 
-  const iconStyle = {
-    color: "#fff",
-    opacity: 0.6,
-    cursor: "pointer",
+  const playPreviousSong = () => {
+    const previousIndex =
+      (currentIndex - 1 + allSongs?.length) % allSongs?.length || 0;
+    setSelectedSong(allSongs?.[previousIndex]);
+    setCurrentIndex(previousIndex);
+  };
+
+  const handleSeek = (event) => {
+    const seekTime = parseFloat(event?.target?.value);
+    audioRef.current.currentTime = seekTime;
+    setCurrentTime(seekTime);
   };
 
   return (
@@ -72,29 +98,37 @@ const AudioPlayer = ({ song = {} }) => {
         className="cover-pic"
       />
       <div>
-        <progress
+        <input
+          type="range"
           value={currentTime}
           max={audioRef?.current?.duration || 0}
-        ></progress>
+          onChange={handleSeek}
+          className="level"
+        />
       </div>
-      <audio ref={audioRef}></audio>
+      <audio ref={audioRef}>
+        <source src={song?.url} type="audio/mpeg" />
+        <source src={song?.url} type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
       <div className="controls">
         <div className="icon-container">
-          <BsThreeDots style={{ ...iconStyle }} />
+          <BsThreeDots className="control-icon" />
         </div>
         <div className="icon-play">
-          <IoPlayBack style={{ ...iconStyle }} />
+          <IoPlayBack className="control-icon" onClick={playPreviousSong} />
           <div>
             <img
               src={isPlaying ? pauseIcon : playIcon}
               alt="play-pause"
               onClick={togglePlayPause}
+              className="play-pause"
             />
           </div>
-          <IoPlayForward style={{ ...iconStyle }} />
+          <IoPlayForward className="control-icon" onClick={playNextSong} />
         </div>
         <div className="icon-container">
-          <IoVolumeMedium style={{ ...iconStyle }} />
+          <IoVolumeMedium className="control-icon" />
         </div>
       </div>
     </div>

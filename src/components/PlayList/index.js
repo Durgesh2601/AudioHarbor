@@ -2,27 +2,33 @@ import { useCallback, useEffect, useState } from "react";
 import { FOR_YOU_TAB, TOP_TRACKS_TAB } from "../../constants";
 import { getSongsData } from "../../api";
 import PlayListItem from "./PlayListItem";
-import { getAfterSearchData } from "../../utils";
+import { getAfterSearchData, getValidSongs } from "../../utils";
 import "./index.css";
 
-const PlayList = ({ selectedSong = {}, setSelectedSong }) => {
+const PlayList = ({
+  selectedSong = {},
+  setSelectedSong,
+  playList = [],
+  setPlayList = () => {},
+  setCurrentIndex,
+}) => {
   const [activeTab, setActiveTab] = useState(FOR_YOU_TAB);
   const [searchQuery, setSearchQuery] = useState("");
   const [allSongs, setAllSongs] = useState([]);
-  const [playList, setPlayList] = useState([]);
   const [playListMap, setPlayListMap] = useState({});
   const getAllSongs = useCallback(async () => {
     try {
       const response = await getSongsData();
       const songs = response?.data?.data || [];
-      const topTracks = songs?.filter((song) => song?.top_track);
+      const validSongs = getValidSongs(songs); //using this method because the response has some invalid song urls
+      const topTracks = validSongs?.filter((song) => song?.top_track);
       const mappedPlayList = {
-        [FOR_YOU_TAB]: songs,
+        [FOR_YOU_TAB]: validSongs,
         [TOP_TRACKS_TAB]: topTracks,
       };
       setPlayListMap(mappedPlayList);
-      setAllSongs(songs);
-      setPlayList(songs);
+      setAllSongs(validSongs);
+      setPlayList(validSongs);
     } catch (error) {
       console.error(error);
     }
@@ -115,13 +121,15 @@ const PlayList = ({ selectedSong = {}, setSelectedSong }) => {
       {/* Playlist Render */}
       <div className="playlist-container">
         {playList?.length > 0 &&
-          playList?.map((song) => {
+          playList?.map((song, index) => {
             return (
               <PlayListItem
                 key={song?.id}
                 song={song}
+                index={index}
                 selectedSong={selectedSong}
                 setSelectedSong={setSelectedSong}
+                setCurrentIndex={setCurrentIndex}
               />
             );
           })}

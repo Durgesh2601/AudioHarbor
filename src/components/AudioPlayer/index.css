@@ -34,9 +34,16 @@
   align-items: center;
   gap: 1rem;
 }
-.player {
-  background: white;
-}
 .play-pause {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.control-icon {
+  color: #fff;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.control-icon:hover {
+  opacity: 1;
+  transform: scale(1.2);
 }

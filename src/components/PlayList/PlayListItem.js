@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { COVER_IMG_URL } from "../../constants";
 
-const PlayListItem = ({ song = {}, setSelectedSong, selectedSong = {} }) => {
+const PlayListItem = ({
+  song = {},
+  setSelectedSong,
+  selectedSong = {},
+  setCurrentIndex,
+  index,
+}) => {
   const [songDuration, setSongDuration] = useState("");
   const assestUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
@@ -20,6 +26,11 @@ const PlayListItem = ({ song = {}, setSelectedSong, selectedSong = {} }) => {
     }
   }, [song]);
 
+  const handleSelectSong = () => {
+    setSelectedSong(song);
+    setCurrentIndex(index);
+  };
+
   const selectedStyle = {
     background: "rgba(255, 255, 255, 0.08)",
     borderRadius: "8px",
@@ -28,7 +39,7 @@ const PlayListItem = ({ song = {}, setSelectedSong, selectedSong = {} }) => {
   return (
     <div
       className="playlist-item"
-      onClick={() => setSelectedSong(song)}
+      onClick={handleSelectSong}
       style={{
         ...(selectedSong?.id === song?.id ? selectedStyle : {}),
       }}
