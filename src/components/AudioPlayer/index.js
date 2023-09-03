@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { IoPlayBack, IoPlayForward, IoVolumeMedium } from "react-icons/io5";
+import { BsThreeDots } from "react-icons/bs";
 import { COVER_IMG_URL } from "../../constants";
+import playIcon from "./play.svg";
+import pauseIcon from "./pause.svg";
 import "./index.css";
 
 const AudioPlayer = ({ song = {} }) => {
@@ -48,6 +52,12 @@ const AudioPlayer = ({ song = {} }) => {
     audioRef.current.volume = e.target.value;
   };
 
+  const iconStyle = {
+    color: "#fff",
+    opacity: 0.6,
+    cursor: "pointer",
+  };
+
   return (
     <div className="player-container">
       <div>
@@ -69,12 +79,23 @@ const AudioPlayer = ({ song = {} }) => {
       </div>
       <audio ref={audioRef}></audio>
       <div className="controls">
-        <div></div>
-        <div></div>
-        <div></div>
-        <button onClick={togglePlayPause}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
+        <div className="icon-container">
+          <BsThreeDots style={{ ...iconStyle }} />
+        </div>
+        <div className="icon-play">
+          <IoPlayBack style={{ ...iconStyle }} />
+          <div>
+            <img
+              src={isPlaying ? pauseIcon : playIcon}
+              alt="play-pause"
+              onClick={togglePlayPause}
+            />
+          </div>
+          <IoPlayForward style={{ ...iconStyle }} />
+        </div>
+        <div className="icon-container">
+          <IoVolumeMedium style={{ ...iconStyle }} />
+        </div>
       </div>
     </div>
   );
