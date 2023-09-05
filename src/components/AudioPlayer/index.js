@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { IoPlayBack, IoPlayForward, IoVolumeMedium } from "react-icons/io5";
+import { IoPlayBack, IoPlayForward } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 import { COVER_IMG_URL } from "../../constants";
 import playIcon from "./play.svg";
 import pauseIcon from "./pause.svg";
+import { RenderVolumeIcon } from "../commonComponents";
 import "./index.css";
 
 const AudioPlayer = ({
@@ -146,7 +147,10 @@ const AudioPlayer = ({
           <IoPlayForward className="control-icon" onClick={playNextSong} />
         </div>
         <div className="icon-container sound">
-          <IoVolumeMedium className="control-icon" onClick={handleSoundClick} size={22} />
+          <RenderVolumeIcon
+            volume={volume}
+            onClickAction={handleSoundClick}
+          />
           {/* Volume slider */}
           <input
             type="range"
