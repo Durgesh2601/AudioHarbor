@@ -16,6 +16,7 @@ const AudioPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.5); // Initial volume
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const audioRef = useRef(null);
   const imgUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
@@ -84,6 +85,23 @@ const AudioPlayer = ({
     setCurrentTime(seekTime);
   };
 
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event?.target?.value);
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+  };
+
+  const handleSoundClick = () => {
+    const currVolume = audioRef.current.volume;
+    if (currVolume > 0) {
+      audioRef.current.volume = 0;
+      setVolume(0);
+    } else {
+      audioRef.current.volume = 0.5;
+      setVolume(0.5);
+    }
+  };
+
   return (
     <div className="player-container">
       <div>
@@ -127,8 +145,19 @@ const AudioPlayer = ({
           </div>
           <IoPlayForward className="control-icon" onClick={playNextSong} />
         </div>
-        <div className="icon-container">
-          <IoVolumeMedium className="control-icon" />
+        <div className="icon-container sound">
+          <IoVolumeMedium className="control-icon" onClick={handleSoundClick} size={22} />
+          {/* Volume slider */}
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="volume-slider"
+            orient="vertical"
+          />
         </div>
       </div>
     </div>

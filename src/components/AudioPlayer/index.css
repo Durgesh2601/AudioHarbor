@@ -47,3 +47,15 @@
   opacity: 1;
   transform: scale(1.2);
 }
+.volume-slider {
+}
+.sound{
+  width: 4rem;
+  background: inherit;
+  display: flex;
+  gap: 0.5rem;
+}
+.volume-slider::-webkit-slider-thumb {
+  width: 0;
+  height: 0;
+}
