@@ -9,18 +9,21 @@ const PlayListItem = ({
   setCurrentIndex,
   index,
 }) => {
-  const [songDuration, setSongDuration] = useState("");
+  const [songDuration, setSongDuration] = useState("--:--");
   const assestUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
   useEffect(() => {
     if (Object.keys(song)?.length) {
       const audio = new Audio(song?.url);
-      audio.addEventListener("loadedmetadata", () => {
+      // Use a setTimeout to ensure the audio element is properly loaded
+      setTimeout(() => {
         const duration = getFormattedTime(audio?.duration);
         setSongDuration(duration);
-      });
+      }, 1000); // Adjust the delay as needed
+
       return () => {
-        audio.removeEventListener("loadedmetadata", () => {});
+        audio.pause();
+        audio.src = "";
       };
     }
   }, [song]);
