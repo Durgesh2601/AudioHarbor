@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FOR_YOU_TAB, TOP_TRACKS_TAB } from "../../constants";
-import { getSongsData } from "../../api";
 import PlayListItem from "./PlayListItem";
-import { getAfterSearchData, getValidSongs } from "../../utils";
+import { getAfterSearchData } from "../../utils";
 import "./index.css";
 
 const PlayList = ({
@@ -12,34 +11,11 @@ const PlayList = ({
   setPlayList = () => {},
   setCurrentIndex,
   customStyle = {},
+  playListMap,
+  allSongs,
 }) => {
   const [activeTab, setActiveTab] = useState(FOR_YOU_TAB);
   const [searchQuery, setSearchQuery] = useState("");
-  const [allSongs, setAllSongs] = useState([]);
-  const [playListMap, setPlayListMap] = useState({});
-  const getAllSongs = useCallback(async () => {
-    try {
-      const response = await getSongsData();
-      const songs = response?.data?.data || [];
-      const validSongs = getValidSongs(songs); //using this method because the response has some invalid song urls
-      const topTracks = validSongs?.filter((song) => song?.top_track);
-      const mappedPlayList = {
-        [FOR_YOU_TAB]: validSongs,
-        [TOP_TRACKS_TAB]: topTracks,
-      };
-      setPlayListMap(mappedPlayList);
-      setAllSongs(validSongs);
-      setPlayList(validSongs);
-      setSelectedSong(validSongs?.[0]);
-    } catch (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getAllSongs();
-  }, [getAllSongs]);
 
   useEffect(() => {
     setSelectedTabSongs();
@@ -140,4 +116,4 @@ const PlayList = ({
   );
 };
 
-export default PlayList;
+export default React.memo(PlayList);

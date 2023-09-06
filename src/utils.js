@@ -30,8 +30,8 @@ export const getValidSongs = (songs) => {
 
 // This method return the formatted duration of the song in minutes and seconds
 export const getFormattedTime = (duration) => {
-  const minutes = Math.floor(duration / 60);
-  const seconds = Math.floor(duration % 60);
+  const minutes = Math.floor(duration / 60) || 0;
+  const seconds = Math.floor(duration % 60) || 0;
   const formattedDuration = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  return formattedDuration;
+  return formattedDuration || "0:00";
 };

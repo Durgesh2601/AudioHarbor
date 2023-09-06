@@ -4,12 +4,15 @@
   padding: 0;
   color: white;
   font-family: "Inter", sans-serif;
+  transition: background 0.5s ease-in-out;
 }
 :root {
   --background-gradient: linear-gradient(108deg, #201606 2.46%, #000 99.84%);
+  transition: background 0.5s ease-in-out;
 }
 body {
   background: var(--background-gradient);
+  transition: background 0.5s ease-in-out;
 }
 @font-face {
   font-family: "Inter";

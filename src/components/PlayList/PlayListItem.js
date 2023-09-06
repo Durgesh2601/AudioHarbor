@@ -13,10 +13,10 @@ const PlayListItem = ({
   const assestUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
   useEffect(() => {
-    if (Object.keys(song).length) {
-      const audio = new Audio(song.url);
+    if (Object.keys(song)?.length) {
+      const audio = new Audio(song?.url);
       audio.addEventListener("loadedmetadata", () => {
-        const duration = getFormattedTime(audio.duration);
+        const duration = getFormattedTime(audio?.duration);
         setSongDuration(duration);
       });
       return () => {
