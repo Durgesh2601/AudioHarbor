@@ -80,8 +80,9 @@
   overflow: hidden;
 }
 
-.song-name {
+.song-header {
   font-size: x-large;
+  font-weight: bold;
 }
 
 /* Media query for small screens */
@@ -97,7 +98,7 @@
     width: 100%;
     align-self: center;
   }
-  .song-name {
+  .song-header {
     font-size: medium;
   }
 }

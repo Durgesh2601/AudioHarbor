@@ -110,7 +110,7 @@ const AudioPlayer = ({
   return (
     <div className="player-container">
       <div>
-        <h2 className="song-name">{song?.name}</h2>
+        <p className="song-header">{song?.name}</p>
         <p className="song-artist">{song?.artist}</p>
       </div>
       <div className="cover-container">
