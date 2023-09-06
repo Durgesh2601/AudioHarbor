@@ -6,6 +6,7 @@ import playIcon from "../../assets/play.svg";
 import pauseIcon from "../../assets/pause.svg";
 import { RenderVolumeIcon } from "../commonComponents";
 import "./index.css";
+import { getFormattedTime } from "../../utils";
 
 const AudioPlayer = ({
   song = {},
@@ -109,7 +110,7 @@ const AudioPlayer = ({
   return (
     <div className="player-container">
       <div>
-        <h2>{song?.name}</h2>
+        <h2 className="song-name">{song?.name}</h2>
         <p className="song-artist">{song?.artist}</p>
       </div>
       <div className="cover-container">
@@ -125,6 +126,10 @@ const AudioPlayer = ({
         />
       </div>
       <audio ref={audioRef} onEnded={endedEvent}></audio>
+      <div className="song-duration">
+        <p>{getFormattedTime(currentTime)}</p>
+        <p>{getFormattedTime(audioRef?.current?.duration)}</p>
+      </div>
       <div className="controls">
         <div className="icon-container">
           <BsThreeDots className="control-icon" />

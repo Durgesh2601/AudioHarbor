@@ -68,4 +68,17 @@ input[type="range"] {
   .drawer {
     display: block;
   }
+  .main-app {
+    gap: 0;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 468px) {
+  .drawer {
+    width: 18rem;
+  }
+  .main-app {
+    gap: 0.5rem;
+  }
 }

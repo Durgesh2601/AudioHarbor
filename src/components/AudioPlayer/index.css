@@ -19,6 +19,16 @@
   align-items: center;
   margin-top: 1rem;
 }
+.song-duration {
+  display: flex;
+  margin-top: 0.5rem;
+  justify-content: space-between;
+}
+.song-duration > p {
+  font-size: 12px;
+  opacity: 0.6;
+  color: #fff;
+}
 .icon-container {
   border-radius: 50%;
   width: 2.5rem;
@@ -70,10 +80,24 @@
   overflow: hidden;
 }
 
+.song-name {
+  font-size: x-large;
+}
+
 /* Media query for small screens */
 @media (max-width: 769px) {
   .player-container {
     width: 60%;
     align-self: center;
+  }
+}
+
+@media (max-width: 468px) {
+  .player-container {
+    width: 100%;
+    align-self: center;
+  }
+  .song-name {
+    font-size: medium;
   }
 }

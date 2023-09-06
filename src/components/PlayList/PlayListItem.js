@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { COVER_IMG_URL } from "../../constants";
+import { getFormattedTime } from "../../utils";
 
 const PlayListItem = ({
   song = {},
@@ -15,10 +16,8 @@ const PlayListItem = ({
     if (Object.keys(song).length) {
       const audio = new Audio(song.url);
       audio.addEventListener("loadedmetadata", () => {
-        const duration = audio.duration;
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        setSongDuration(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+        const duration = getFormattedTime(audio.duration);
+        setSongDuration(duration);
       });
       return () => {
         audio.removeEventListener("loadedmetadata", () => {});

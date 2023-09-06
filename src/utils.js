@@ -27,3 +27,11 @@ export const getValidSongs = (songs) => {
   }));
   return mappedSongs || [];
 };
+
+// This method return the formatted duration of the song in minutes and seconds
+export const getFormattedTime = (duration) => {
+  const minutes = Math.floor(duration / 60);
+  const seconds = Math.floor(duration % 60);
+  const formattedDuration = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  return formattedDuration;
+};
