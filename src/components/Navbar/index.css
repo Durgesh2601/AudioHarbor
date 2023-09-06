@@ -2,3 +2,17 @@
   width: 20%;
   padding-left: 1em;
 }
+
+/* Media query for smaller screens (e.g., smartphones) */
+@media (max-width: 768px) {
+  .navbar {
+    height: fit-content;
+    width: fit-content;
+    padding-left: 0;
+  }
+  .navbar-img {
+    width: 7rem;
+    height: auto;
+    align-items: flex-start;
+  }
+}

@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { IoPlayBack, IoPlayForward } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 import { COVER_IMG_URL } from "../../constants";
-import playIcon from "./play.svg";
-import pauseIcon from "./pause.svg";
+import playIcon from "../../assets/play.svg";
+import pauseIcon from "../../assets/pause.svg";
 import { RenderVolumeIcon } from "../commonComponents";
 import "./index.css";
 
@@ -17,26 +17,22 @@ const AudioPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.5); // Initial volume
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const audioRef = useRef(null);
   const imgUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
   // Function to handle song changes and playback
   const handleSongChange = () => {
     if (isPlaying) {
-      audioRef.current.pause(); // Pause the current audio playback
+      audioRef?.current?.pause(); // Pause the current audio playback
     }
 
     if (audioRef.current.src !== song?.url) {
       audioRef.current.src = song?.url; // Set the new audio source
       audioRef.current.load(); // Load the new audio source
-      audioRef.current.play(); // Start playback
-      setIsPlaying(true);
+      // Do not start playback here
     }
 
-    if (isPlaying) {
-      audioRef.current.play(); // Start playback if it was playing
-    }
+    // Do not start playback here
   };
 
   useEffect(() => {
@@ -63,6 +59,7 @@ const AudioPlayer = ({
     if (isPlaying) {
       audioRef.current.pause();
     } else {
+      // Start playback in response to user interaction
       audioRef.current.play();
     }
   };
@@ -71,6 +68,7 @@ const AudioPlayer = ({
     const nextIndex = (currentIndex + 1) % allSongs?.length || 0;
     setSelectedSong(allSongs?.[nextIndex]);
     setCurrentIndex(nextIndex);
+    setIsPlaying(true); // Start playback when changing songs
   };
 
   const playPreviousSong = () => {
@@ -78,6 +76,7 @@ const AudioPlayer = ({
       (currentIndex - 1 + allSongs?.length) % allSongs?.length || 0;
     setSelectedSong(allSongs?.[previousIndex]);
     setCurrentIndex(previousIndex);
+    setIsPlaying(true); // Start playback when changing songs
   };
 
   const handleSeek = (event) => {
@@ -113,13 +112,9 @@ const AudioPlayer = ({
         <h2>{song?.name}</h2>
         <p className="song-artist">{song?.artist}</p>
       </div>
-      <img
-        src={imgUrl}
-        alt="cover-img"
-        width={400}
-        height={340}
-        className="cover-pic"
-      />
+      <div className="cover-container">
+        <img src={imgUrl} alt="cover-img" className="cover-pic" />
+      </div>
       <div>
         <input
           type="range"
@@ -129,7 +124,7 @@ const AudioPlayer = ({
           className="level"
         />
       </div>
-      <audio ref={audioRef} autoPlay onEnded={endedEvent}></audio>
+      <audio ref={audioRef} onEnded={endedEvent}></audio>
       <div className="controls">
         <div className="icon-container">
           <BsThreeDots className="control-icon" />

@@ -61,6 +61,7 @@
 
 .playlist-container {
   padding: 1rem 0;
+  width: 100%;
 }
 
 .playlist-item {
@@ -97,4 +98,17 @@
 .song-duration {
   font-size: 14px;
   opacity: 0.6;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .audio-player {
+    width: 40%;
+  }
+}
+
+/* Media query for smaller screens (e.g., smartphones) */
+@media (max-width: 768px) {
+  .audio-player {
+    display: none;
+  }
 }

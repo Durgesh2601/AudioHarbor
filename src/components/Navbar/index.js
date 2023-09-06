@@ -3,6 +3,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <svg
+        className="navbar-img"
         xmlns="http://www.w3.org/2000/svg"
         width="134"
         height="40"

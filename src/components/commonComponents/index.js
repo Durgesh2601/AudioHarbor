@@ -1,5 +1,8 @@
 import { BsFillVolumeMuteFill, BsVolumeDownFill } from "react-icons/bs";
 import { IoVolumeMedium } from "react-icons/io5";
+import { IoCloseSharp } from "react-icons/io5";
+import { FiMenu } from "react-icons/fi";
+import PlayList from "../PlayList";
 
 const RenderVolumeIcon = ({ volume, onClickAction }) => {
   const iconRenderer = () => {
@@ -33,4 +36,47 @@ const RenderVolumeIcon = ({ volume, onClickAction }) => {
   return <>{iconRenderer()}</>;
 };
 
-export { RenderVolumeIcon };
+const RenderDrawer = ({
+  isDrawer,
+  setIsDrawer,
+  playList,
+  setPlayList,
+  setCurrentIndex,
+  selectedSong,
+  setSelectedSong,
+}) => {
+  const customStyle = {
+    width: "100%",
+    display: isDrawer ? "block" : "none",
+  };
+
+  return (
+    <div className={`drawer ${isDrawer ? "open" : ""}`}>
+      <div className="close-icon">
+        <IoCloseSharp size={25} onClick={() => setIsDrawer(false)} />
+      </div>
+      <div className="drawer-content">
+        <PlayList
+          {...{
+            playList,
+            setPlayList,
+            setCurrentIndex,
+            selectedSong,
+            setSelectedSong,
+            customStyle,
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+const MenuIcon = ({ setIsDrawer }) => {
+  return (
+    <div className="menu-icon">
+      <FiMenu size={28} onClick={() => setIsDrawer((prev) => !prev)} />
+    </div>
+  );
+};
+
+export { RenderVolumeIcon, RenderDrawer, MenuIcon };

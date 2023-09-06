@@ -1,8 +1,7 @@
 .player-container {
   width: 33%;
-  height: 83vh;
   align-self: center;
-  padding-left: 2rem;
+  height: 83vh;
 }
 .song-artist {
   opacity: 0.6;
@@ -47,9 +46,7 @@
   opacity: 1;
   transform: scale(1.2);
 }
-.volume-slider {
-}
-.sound{
+.sound {
   width: 4rem;
   background: inherit;
   display: flex;
@@ -58,4 +55,25 @@
 .volume-slider::-webkit-slider-thumb {
   width: 0;
   height: 0;
+}
+.level {
+  width: 100%;
+}
+.cover-pic {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.cover-container {
+  height: 70%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Media query for small screens */
+@media (max-width: 769px) {
+  .player-container {
+    width: 60%;
+    align-self: center;
+  }
 }

@@ -11,6 +11,7 @@ const PlayList = ({
   playList = [],
   setPlayList = () => {},
   setCurrentIndex,
+  customStyle = {},
 }) => {
   const [activeTab, setActiveTab] = useState(FOR_YOU_TAB);
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,6 +30,7 @@ const PlayList = ({
       setPlayListMap(mappedPlayList);
       setAllSongs(validSongs);
       setPlayList(validSongs);
+      setSelectedSong(validSongs?.[0]);
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +76,7 @@ const PlayList = ({
   };
 
   return (
-    <div className="audio-player">
+    <div className="audio-player" style={{ ...customStyle }}>
       <div className="tab-container">
         <div
           className={`tab ${activeTab === FOR_YOU_TAB ? "active" : ""}`}
