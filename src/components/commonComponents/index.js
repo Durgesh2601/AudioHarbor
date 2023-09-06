@@ -44,6 +44,8 @@ const RenderDrawer = ({
   setCurrentIndex,
   selectedSong,
   setSelectedSong,
+  playListMap,
+  allSongs,
 }) => {
   const customStyle = {
     width: "100%",
@@ -64,6 +66,8 @@ const RenderDrawer = ({
             selectedSong,
             setSelectedSong,
             customStyle,
+            playListMap,
+            allSongs,
           }}
         />
       </div>

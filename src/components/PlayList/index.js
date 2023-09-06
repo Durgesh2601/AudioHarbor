@@ -33,7 +33,7 @@ const PlayList = ({
   }, [selectedSong]);
 
   const setSelectedTabSongs = () => {
-    setPlayList(playListMap[activeTab]);
+    setPlayList(playListMap?.[activeTab]);
   };
 
   const handleTabClick = (tab) => {
@@ -47,7 +47,7 @@ const PlayList = ({
     if (!query) {
       return setPlayList(allData);
     }
-    const filteredData = getAfterSearchData(playListMap[activeTab], query);
+    const filteredData = getAfterSearchData(playListMap?.[activeTab], query);
     setPlayList(filteredData);
   };
 
