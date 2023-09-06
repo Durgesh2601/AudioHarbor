@@ -103,6 +103,10 @@ const AudioPlayer = ({
     }
   };
 
+  const endedEvent = () => {
+    playNextSong();
+  };
+
   return (
     <div className="player-container">
       <div>
@@ -125,11 +129,7 @@ const AudioPlayer = ({
           className="level"
         />
       </div>
-      <audio ref={audioRef}>
-        <source src={song?.url} type="audio/mpeg" />
-        <source src={song?.url} type="audio/ogg" />
-        Your browser does not support the audio element.
-      </audio>
+      <audio ref={audioRef} autoPlay onEnded={endedEvent}></audio>
       <div className="controls">
         <div className="icon-container">
           <BsThreeDots className="control-icon" />
@@ -147,10 +147,7 @@ const AudioPlayer = ({
           <IoPlayForward className="control-icon" onClick={playNextSong} />
         </div>
         <div className="icon-container sound">
-          <RenderVolumeIcon
-            volume={volume}
-            onClickAction={handleSoundClick}
-          />
+          <RenderVolumeIcon volume={volume} onClickAction={handleSoundClick} />
           {/* Volume slider */}
           <input
             type="range"
