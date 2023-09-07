@@ -23,6 +23,7 @@ const AudioPlayer = ({
 
   // Function to handle song changes and playback
   const handleSongChange = () => {
+    if (song?.isDefault) return;
     if (isPlaying) {
       audioRef?.current?.pause(); // Pause the current audio playback
     }
@@ -55,6 +56,7 @@ const AudioPlayer = ({
   }, []);
 
   const togglePlayPause = () => {
+    if (song?.isDefault) return setSelectedSong(allSongs?.[0]);
     setIsPlaying(!isPlaying);
     if (isPlaying) {
       audioRef.current.pause();
@@ -65,6 +67,7 @@ const AudioPlayer = ({
   };
 
   const playNextSong = () => {
+    if (song?.isDefault) return setSelectedSong(allSongs?.[1]);
     const nextIndex = (currentIndex + 1) % allSongs?.length || 0;
     setSelectedSong(allSongs?.[nextIndex]);
     setCurrentIndex(nextIndex);
@@ -72,6 +75,7 @@ const AudioPlayer = ({
   };
 
   const playPreviousSong = () => {
+    if (song?.isDefault) return setSelectedSong(allSongs?.[0]);
     const previousIndex =
       (currentIndex - 1 + allSongs?.length) % allSongs?.length || 0;
     setSelectedSong(allSongs?.[previousIndex]);

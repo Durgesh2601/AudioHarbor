@@ -7,11 +7,11 @@ import { MenuIcon, RenderDrawer } from "./components/commonComponents";
 import MainLoader from "./components/Loader/MainLoader";
 import { getSongsData } from "./api";
 import { getValidSongs } from "./utils";
-import { FOR_YOU_TAB, TOP_TRACKS_TAB } from "./constants";
+import { DEFAULT_SONG, FOR_YOU_TAB, TOP_TRACKS_TAB } from "./constants";
 
 function App() {
   const [playList, setPlayList] = useState([]);
-  const [selectedSong, setSelectedSong] = useState(null);
+  const [selectedSong, setSelectedSong] = useState(DEFAULT_SONG);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDrawer, setIsDrawer] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
