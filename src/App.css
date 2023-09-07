@@ -82,3 +82,25 @@ input[type="range"] {
     gap: 0.5rem;
   }
 }
+
+/* Styles for Image Shimmer */
+.box {
+  background: #777;
+  height: 271px;
+  border-radius: 1rem;
+}
+
+.animate {
+  animation: shimmer 20s infinite linear;
+  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 38%);
+  background-size: 100% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}

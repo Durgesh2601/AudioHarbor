@@ -4,9 +4,9 @@ import { BsThreeDots } from "react-icons/bs";
 import { COVER_IMG_URL } from "../../constants";
 import playIcon from "../../assets/play.svg";
 import pauseIcon from "../../assets/pause.svg";
-import { RenderVolumeIcon } from "../commonComponents";
-import "./index.css";
+import { ImageWrapper, RenderVolumeIcon } from "../commonComponents";
 import { getFormattedTime } from "../../utils";
+import "./index.css";
 
 const AudioPlayer = ({
   song = {},
@@ -110,6 +110,13 @@ const AudioPlayer = ({
     playNextSong();
   };
 
+  const stylesObj = {
+    width: "100%",
+    height: "100%",
+    borderRadius: "8px",
+    background: "var(--background-gradient)",
+  };
+
   return (
     <div className="player-container">
       <div>
@@ -117,7 +124,12 @@ const AudioPlayer = ({
         <p className="song-artist">{song?.artist}</p>
       </div>
       <div className="cover-container">
-        <img src={imgUrl} alt="cover-img" className="cover-pic" />
+        <ImageWrapper
+          imgSrc={imgUrl}
+          alt={"cover-img"}
+          className={"cover-pic"}
+          style={stylesObj}
+        />
       </div>
       <div>
         <input

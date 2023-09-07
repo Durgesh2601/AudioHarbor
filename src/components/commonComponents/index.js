@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { BsFillVolumeMuteFill, BsVolumeDownFill } from "react-icons/bs";
 import { IoVolumeMedium } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
@@ -83,4 +84,47 @@ const MenuIcon = ({ setIsDrawer }) => {
   );
 };
 
-export { RenderVolumeIcon, RenderDrawer, MenuIcon };
+const Shimmer = ({ style = {} }) => {
+  return <div className="box animate" style={{ ...style }} />;
+};
+
+const ImageWrapper = ({
+  imgSrc = "",
+  style = {},
+  imgStyle = {},
+  className = "",
+  width = 40,
+  height = 40,
+  alt = "img",
+}) => {
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+
+  const checkImgLoader = useCallback(() => {
+    if (imgSrc) {
+      const image = new Image();
+      image.onload = () => {
+        setIsImgLoaded(true);
+      };
+      image.src = imgSrc;
+    }
+  }, [imgSrc]);
+
+  useEffect(() => {
+    checkImgLoader();
+  }, [checkImgLoader]);
+
+  return isImgLoaded ? (
+    <img
+      src={imgSrc}
+      alt={alt}
+      style={{ ...imgStyle }}
+      className={className}
+      width={width}
+      height={height}
+    />
+  ) : (
+    <Shimmer style={{ ...style }} />
+  );
+};
+
+export { RenderVolumeIcon, RenderDrawer, MenuIcon, ImageWrapper };
