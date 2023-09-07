@@ -48,3 +48,4 @@ export const getAudioDuration = (audioUrl) => {
     });
   });
 };
+// Not using this method beacuse it makes the app slow on initial render. Performance measure by Lighthouse was too low -> 55

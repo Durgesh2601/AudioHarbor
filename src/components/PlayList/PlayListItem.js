@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { COVER_IMG_URL } from "../../constants";
-import { getAudioDuration, getFormattedTime } from "../../utils";
 
 const PlayListItem = ({
   song = {},
@@ -9,25 +7,7 @@ const PlayListItem = ({
   setCurrentIndex,
   index,
 }) => {
-  const [songDuration, setSongDuration] = useState("--:--");
   const assestUrl = `${COVER_IMG_URL}/${song?.cover}`;
-
-  useEffect(() => {
-    getSongDuration();
-    // eslint-disable-next-line
-  }, [song]);
-
-  const getSongDuration = async () => {
-    try {
-      if (Object.keys(song)?.length) {
-        const duration = await getAudioDuration(song?.url);
-        const formattedDuration = getFormattedTime(duration);
-        setSongDuration(formattedDuration);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleSelectSong = () => {
     setSelectedSong(song);
@@ -59,7 +39,7 @@ const PlayListItem = ({
         <p className="artist">{song?.artist}</p>
       </div>
       <div className="duration">
-        <p className="song-duration">{songDuration}</p>
+        <p className="song-duration">{song?.duration || "--:--"}</p>
       </div>
     </div>
   );
