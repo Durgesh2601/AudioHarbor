@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { COVER_IMG_URL } from "../../constants";
-import { getFormattedTime } from "../../utils";
+import { getAudioDuration, getFormattedTime } from "../../utils";
 
 const PlayListItem = ({
   song = {},
@@ -13,20 +13,21 @@ const PlayListItem = ({
   const assestUrl = `${COVER_IMG_URL}/${song?.cover}`;
 
   useEffect(() => {
-    if (Object.keys(song)?.length) {
-      const audio = new Audio(song?.url);
-      // Use a setTimeout to ensure the audio element is properly loaded
-      setTimeout(() => {
-        const duration = getFormattedTime(audio?.duration);
-        setSongDuration(duration);
-      }, 1000); // Adjust the delay as needed
-
-      return () => {
-        audio.pause();
-        audio.src = "";
-      };
-    }
+    getSongDuration();
+    // eslint-disable-next-line
   }, [song]);
+
+  const getSongDuration = async () => {
+    try {
+      if (Object.keys(song)?.length) {
+        const duration = await getAudioDuration(song?.url);
+        const formattedDuration = getFormattedTime(duration);
+        setSongDuration(formattedDuration);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSelectSong = () => {
     setSelectedSong(song);

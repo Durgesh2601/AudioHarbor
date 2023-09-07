@@ -35,3 +35,16 @@ export const getFormattedTime = (duration) => {
   const formattedDuration = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   return formattedDuration || "0:00";
 };
+
+// This method return song's duration, needed to implement this because api response doesn't include duration
+export const getAudioDuration = (audioUrl) => {
+  return new Promise((resolve, reject) => {
+    const audio = new Audio(audioUrl);
+    audio.addEventListener("loadedmetadata", () => {
+      resolve(audio.duration);
+    });
+    audio.addEventListener("error", () => {
+      reject("Error loading audio");
+    });
+  });
+};
