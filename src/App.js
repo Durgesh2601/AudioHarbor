@@ -32,7 +32,6 @@ function App() {
       setPlayListMap(mappedPlayList);
       setAllSongs(validSongs);
       setPlayList(validSongs);
-      setSelectedSong(validSongs?.[0]);
       setIsLoading(false);
     } catch (error) {
       console.error(error);

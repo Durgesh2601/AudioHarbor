@@ -27,13 +27,12 @@ const AudioPlayer = ({
       audioRef?.current?.pause(); // Pause the current audio playback
     }
 
-    if (audioRef.current.src !== song?.url) {
+    if (audioRef?.current?.src !== song?.url) {
       audioRef.current.src = song?.url; // Set the new audio source
-      audioRef.current.load(); // Load the new audio source
-      // Do not start playback here
+      audioRef?.current?.load();
+      audioRef?.current?.play(); // Start playback
+      setIsPlaying(true);
     }
-
-    // Do not start playback here
   };
 
   useEffect(() => {
